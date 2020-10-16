@@ -31,7 +31,7 @@
         ::-webkit-scrollbar-thumb {
             background: #a7a7a7;
         }
-        /* Handle on hover */
+
         ::-webkit-scrollbar-thumb:hover {
             background: #929292;
         }
