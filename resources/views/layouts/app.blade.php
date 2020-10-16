@@ -224,6 +224,11 @@
     var receiver_id = '';
     var my_id = "{{\Illuminate\Support\Facades\Auth::id()}}";
     $(document).ready(function () {
+        $.ajaxSetup({
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         $('.user').click(function () {
 
             $('.user').removeClass('active');
@@ -242,6 +247,30 @@
 
                 }
             })
+        })
+
+        $(document).on('keyup','.input-text input',function (e) {
+            var message = $(this).val();
+            if(e.keyCode == 13 && message != '' && receiver_id != ''){
+                //alert(message);
+                $(this).val(''); // yollayınca inputu sil
+                var datastr = "receiver_id="+receiver_id + "&message="+message;
+                $.ajax({
+                    type: 'post',
+                    url: '{{route('send.message')}}',
+                    data:datastr,
+                    cache:false,
+                    success:function (data) {
+
+                    },
+                    error:function (jqXHR,status,err) {
+
+                    },
+                    complete:function () {
+
+                    }
+                })
+            }
         })
     })
 </script>

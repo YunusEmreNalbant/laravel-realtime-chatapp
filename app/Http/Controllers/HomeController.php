@@ -42,4 +42,18 @@ class HomeController extends Controller
 
         return view('messages.index',compact('messages'));
     }
+
+    public function sendMessage(Request $request){
+
+        $from = Auth::id();
+        $to = $request->receiver_id;
+        $message = $request->message;
+
+        $data = new Message();
+        $data->from = $from;
+        $data->to = $to;
+        $data->message = $message;
+        $data->is_read = 0;
+        $data->save();
+    }
 }
